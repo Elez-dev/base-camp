@@ -38,7 +38,7 @@ class Worker:
             address = web3_eth.eth.account.from_key(key).address
 
             # Список заданий
-            keys = ['quest1', 'quest2', 'quest3', 'quest4', 'quest5', 'quest6', 'quest7', 'quest8', 'quest9', 'quest10', 'quest11', 'quest12']
+            keys = ['quest1', 'quest2', 'quest3', 'quest4', 'quest5', 'quest6', 'quest7', 'quest8', 'quest9', 'quest10', 'quest11', 'quest12', 'quest13']
             random.shuffle(keys)
 
             # Создание нового маршрута с заданиями
