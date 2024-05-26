@@ -23,7 +23,7 @@
 Плюс, за это нам дадут 9 поинтов в [Talent Protocol Passport](https://teletype.in/@svalkadao/TalentProtocol)
 
 
-**Софт работает по такой логике: **
+<b>Софт работает по такой логике:</b>
 1. Из ARB/OP ETH мы бриджим в Ethereum Sepolia testnet - [testnetbridge.com](https://testnetbridge.com/sepolia)
 2. Затем полученный ETH Sepolia мы бриджим в Base Sepolia - [orbiter.finance](https://rinkeby.orbiter.finance/?source=Sepolia&dest=Base%20Sepolia&token=ETH)
 3. Начинаем деплоить контракты
@@ -47,7 +47,6 @@ cd base-camp-master
 pip3.10 install -r requirements.txt
 
 python3.10 main.py
-
 ```
 ---
 <h2>🤖 ВОЗМОЖНОСТИ СОФТА:</h2>
