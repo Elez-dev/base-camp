@@ -20,8 +20,8 @@ class TestnetBridge(Wallet):
     def bridge(self):
         amount = round(random.uniform(TESTNET_BRIDGE_VALUE[0], TESTNET_BRIDGE_VALUE[1]), TESTNET_BRIDGE_VALUE[2])
         balance = self.web3.eth.get_balance(self.address_wallet)
-        if balance - Web3.to_wei(0.000003, 'ether') < Web3.to_wei(amount, 'ether'):
-            amount = Web3.from_wei(balance - Web3.to_wei(0.0000033, 'ether'), 'ether')
+        if balance - Web3.to_wei(0.000009, 'ether') < Web3.to_wei(amount, 'ether'):
+            amount = Web3.from_wei(balance - Web3.to_wei(0.000009, 'ether'), 'ether')
         logger.info(f'Testnet bridge {amount} ETH\n')
         contract = self.web3.eth.contract(address=self.address, abi=self.abi)
         value = Web3.to_wei(amount, 'ether')
@@ -36,7 +36,7 @@ class TestnetBridge(Wallet):
         ).build_transaction({
             'from': self.address_wallet,
             'nonce': self.web3.eth.get_transaction_count(self.address_wallet),
-            'value': value + Web3.to_wei(0.000003, 'ether'),
+            'value': value + Web3.to_wei(0.000009, 'ether'),
             **self.get_gas_price()
         })
         tx_hash = self.send_transaction_and_wait(txn, f'Testnet bridge {amount} ETH')
