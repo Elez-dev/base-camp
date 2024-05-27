@@ -74,7 +74,7 @@ class Worker:
             balance_sepolia = self.check_balance_sepolia(address_wallet)
             if balance_sepolia < 0.1:
                 chain, balance_op_or_arb = self.check_balance_op_or_arb(address_wallet)
-                if balance_op_or_arb < TESTNET_BRIDGE_VALUE[0] + 0.000009:
+                if balance_op_or_arb < TESTNET_BRIDGE_VALUE[0] + 0.000003:
                     logger.error(f'Insufficient balance, continuation is not possible\n')
                     return False
 
