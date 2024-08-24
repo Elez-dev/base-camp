@@ -7,8 +7,8 @@ TG_TOKEN = ''                                     # API токен для Telegr
 TG_ID = 0000                                      # ID вашего Telegram можно узнать здесь                 - https://t.me/getmyid_bot
 
 CHAIN_RPC = {
-    'Arbitrum': 'https://rpc.ankr.com/arbitrum',
-    'Optimism': 'https://rpc.ankr.com/optimism',
+    'Arbitrum': 'https://rpc.zerion.io/v1/arbitrum',
+    'Optimism': 'https://rpc.zerion.io/v1/optimism',
     'Sepolia-Base': 'https://sepolia.base.org',
     'Sepolia-ETH': 'https://ethereum-sepolia-rpc.publicnode.com'
 }
