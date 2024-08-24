@@ -81,14 +81,14 @@ class Worker:
                 else:
                     testnet_bridger = TestnetBridge(private_key, chain, number)
                     testnet_bridger.bridge()
-                    sleeping(TIME_DELAY[0], TIME_DELAY[1])
+                    sleeping(*TIME_DELAY)
                     sepolia_bridger = SepoliaBridge(private_key, number)
                     sepolia_bridger.bridge()
-                    sleeping(TIME_DELAY[0], TIME_DELAY[1])
+                    sleeping(*TIME_DELAY)
             else:
                 sepolia_bridger = SepoliaBridge(private_key, number)
                 sepolia_bridger.bridge()
-                sleeping(TIME_DELAY[0], TIME_DELAY[1])
+                sleeping(*TIME_DELAY)
         else:
             logger.success(f'Balance on Sepolia-Base - {balance_base} ETH\n')
 
@@ -96,45 +96,50 @@ class Worker:
 
         i = 0
         for number, key in keys_list:
-            str_number = f'{number} / {all_wallets}'
+            try:
+                str_number = f'{number} / {all_wallets}'
 
-            i += 1
-            address = web3_eth.eth.account.from_key(key).address
-            logger.info(f'Account #{i} || {address}\n')
+                i += 1
+                address = web3_eth.eth.account.from_key(key).address
+                logger.info(f'Account #{i} || {address}\n')
 
-            data = self.load_data()
+                data = self.load_data()
 
-            contract = CreateContract(key, str_number)
-            _contract = ConfirmContract(key, str_number)
-            wallet = Wallet(key, 'Sepolia-Base', str_number)
+                contract = CreateContract(key, str_number)
+                _contract = ConfirmContract(key, str_number)
+                wallet = Wallet(key, 'Sepolia-Base', str_number)
 
-            flag = False
+                flag = False
 
-            for quest, complet_task in data[address].items():
+                for quest, complet_task in data[address].items():
 
-                if complet_task is False and flag is False:
-                    result = self.check_balance(address, key, str_number)
-                    if result is False:
-                        break
+                    if complet_task is False and flag is False:
+                        result = self.check_balance(address, key, str_number)
+                        if result is False:
+                            break
 
-                flag = True
+                    flag = True
 
-                if complet_task is True:
-                    continue
+                    if complet_task is True:
+                        continue
 
-                tx_hash = contract.create(quest)
-                contract_address = wallet.get_contract_address(tx_hash)
-                sleeping(TIME_DELAY[0], TIME_DELAY[1])
-                result = _contract.confirm(quest, contract_address)
+                    tx_hash = contract.create(quest)
+                    contract_address = wallet.get_contract_address(tx_hash)
+                    sleeping(*TIME_DELAY)
+                    result = _contract.confirm(quest, contract_address)
 
-                if result is True:
-                    data[address][quest] = True
-                    self.save_progress(data)
+                    if result is True:
+                        data[address][quest] = True
+                        self.save_progress(data)
 
-                sleeping(TIME_DELAY[0], TIME_DELAY[1])
+                    sleeping(*TIME_DELAY)
 
-            logger.success(f'Account completed, sleep and move on to the next one\n')
-            sleeping(TIME_ACCOUNT_DELAY[0], TIME_ACCOUNT_DELAY[1])
+                logger.success(f'Account completed, sleep and move on to the next one\n')
+                sleeping(*TIME_ACCOUNT_DELAY)
+            except Exception as error:
+                logger.error(error)
+                sleeping(*TIME_DELAY_ERROR)
+                continue
 
 
 if __name__ == '__main__':
